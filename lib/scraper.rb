@@ -45,19 +45,9 @@ class Scraper
 
 
 
-   end	  end
+   end	 
 
 
- end	end
+ end
 
      
-23  lib/student.rb
-@@ -1,23 +1,34 @@
-class Student	class Student
-
-
-   attr_accessor :name, :location, :twitter, :linkedin, :github, :blog, :profile_quote, :bio, :profile_url 	  attr_accessor :name, :location, :twitter, :linkedin, :github, :blog, :profile_quote, :bio, :profile_url
-
-
-end
-
