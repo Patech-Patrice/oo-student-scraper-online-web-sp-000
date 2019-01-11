@@ -8,7 +8,7 @@ class Scraper
     html = open ('./fixtures/student-site/index.html')
     list = Nokogiri::HTML(html)
    # returns a list of student names
-    names = list.css(".student-name")
+    names = list.css(".student-name") 
     names_array = []
     names.each do |item|
       names_array << item.text
