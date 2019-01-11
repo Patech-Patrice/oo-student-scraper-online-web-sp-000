@@ -2,24 +2,16 @@ require 'open-uri'
 require 'pry'
 require "nokogiri"
 
-class Scraper
+  class Scraper
 
-  def self.scrape_index_page(index_url)
-
-     # make document
-    index_saw = Nokogiri::HTML(open(index_url)) 
-    # make names array
-    name_array = index_saw.css(".student-card .student-name").map {|nom| {:name => nom.text}}
-    # make locations array
-    location_array = index_saw.css(".student-card .student-location").map {|loc| {:location => loc.text}}
-    # make_url_array
-    url_array = index_saw.css(".student-card a").xpath('@href').map {|uri| {:profile_url => uri.text}}
-    # merge elements
-    student_array = name_array.each_with_index { |hsh, ind| hsh.merge!(location_array[ind]).merge!(url_array[ind])}
-    # return student array
-    student_array
-
-   end
+    def self.scrape_index_page(index_url)
+    index_saw = Nokogiri::HTML(open(index_url)) #makes document
+    name_array = index_saw.css(".student-card .student-name").map {|nom| {:name => nom.text}} #create names_array
+    location_array = index_saw.css(".student-card .student-location").map {|loc| {:location => loc.text}} #create locations_array
+    url_array = index_saw.css(".student-card a").xpath('@href').map {|uri| {:profile_url => uri.text}} #creates url_array
+    student_array = name_array.each_with_index { |hsh, ind| hsh.merge!(location_array[ind]).merge!(url_array[ind])} #merge elements together
+    student_array #return student_array
+    end
 
 
    def self.get_url_by_icon(sitename, doc)
