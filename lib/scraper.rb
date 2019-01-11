@@ -14,14 +14,13 @@ require "nokogiri"
     end
 
 
-   def self.get_url_by_icon(sitename, doc)
+    def self.get_url_by_icon(sitename, doc)
     # find social link generically by icon;
     # parsing url for keyword doesn't find blogs
     doc.xpath("//img[contains(@src, '#{sitename}')]/../@href").text
-  end	  
-    
+    end	  
 
-  def self.scrape_profile_page(profile_url)
+    def self.scrape_profile_page(profile_url)
     profile_saw = Nokogiri::HTML(open(profile_url)) #create document
     site_array = ["twitter", "linkedin", "github", "rss"] #keywords to parse urls
     student_hash = {} #empty hash
