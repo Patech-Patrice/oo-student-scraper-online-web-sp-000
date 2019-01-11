@@ -26,7 +26,7 @@ class Scraper
     # find social link generically by icon;
     # parsing url for keyword doesn't find blogs
     doc.xpath("//img[contains(@src, '#{sitename}')]/../@href").text
-  end	  end
+  end	  
     
 
   def self.scrape_profile_page(profile_url)
