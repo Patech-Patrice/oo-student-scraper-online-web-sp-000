@@ -5,14 +5,28 @@ require "nokogiri"
 class Scraper
 
   def self.scrape_index_page(index_url)
-    html = open ('./fixtures/student-site/index.html')
-    list = Nokogiri::HTML(html)
-    names = list.css(".student-name") #returns a list of student names
-    names_array = []
-    names.each do |item|
-      names_array << item.text
-    end
-  end  
+
+     # make document
+    index_saw = Nokogiri::HTML(open(index_url)) 
+    # make names array
+    name_array = index_saw.css(".student-card .student-name").map {|nom| {:name => nom.text}}
+    # make locations array
+    location_array = index_saw.css(".student-card .student-location").map {|loc| {:location => loc.text}}
+    # make_url_array
+    url_array = index_saw.css(".student-card a").xpath('@href').map {|uri| {:profile_url => uri.text}}
+    # merge elements
+    student_array = name_array.each_with_index { |hsh, ind| hsh.merge!(location_array[ind]).merge!(url_array[ind])}
+    # return student array
+    student_array
+
+   end
+
+
+   def self.get_url_by_icon(sitename, doc)
+    # find social link generically by icon;
+    # parsing url for keyword doesn't find blogs
+    doc.xpath("//img[contains(@src, '#{sitename}')]/../@href").text
+  end	  end
     
 
   def self.scrape_profile_page(profile_url)
